@@ -15,7 +15,7 @@ public class ProblemsController {
     @Resource
     ProblemService problemService;
 
-    @RequestMapping("/get")
+    @RequestMapping("/getList")
     public List<Problem> hello(){
         return problemService.getProblems();
     }
