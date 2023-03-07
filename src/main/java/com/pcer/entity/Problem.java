@@ -3,13 +3,8 @@ package com.pcer.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.pcer.util.Converter;
 import lombok.Data;
-import org.springframework.stereotype.Component;
-
-import javax.annotation.Resource;
 import java.io.Serializable;
-import java.util.ArrayList;
 
 @Data
 @TableName("problem")
