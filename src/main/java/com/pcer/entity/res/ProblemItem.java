@@ -9,5 +9,7 @@ public class ProblemItem {
     Integer id;
     String name;
     String difficulty;
+    String content;
     ArrayList<String> tags;
+
 }

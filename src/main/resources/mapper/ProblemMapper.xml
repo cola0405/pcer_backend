@@ -12,4 +12,12 @@
             join tag on pt.tag_id = tag.id
     </select>
 
+    <insert id="newProblem" parameterType="com.pcer.entity.Problem">
+        insert into problem values(null, #{name}, #{difficulty}, #{content})
+    </insert>
+
+    <select id="getProblemById" resultType="com.pcer.entity.res.ProblemItem">
+        select id, name, difficulty, content from problem where id = #{id}
+    </select>
+
 </mapper>

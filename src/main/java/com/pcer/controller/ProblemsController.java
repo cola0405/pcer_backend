@@ -23,9 +23,14 @@ public class ProblemsController {
     }
 
     @PostMapping("/new")
-    public R newProblem(@Validated @RequestBody NewProblemReq req){
-        System.out.println(req.getContent());
-        System.out.println(req.getName());
+    public R newProblem(@Validated @RequestBody NewProblemReq req) throws Exception {
+        problemService.newProblem(req);
         return R.success();
+    }
+
+    @GetMapping("/get")
+    public ProblemItem getProblem(@RequestParam("id") Integer id){
+        ProblemItem item = problemService.getProblemById(id);
+        return item;
     }
 }
