@@ -1,5 +1,6 @@
 package com.pcer.entity.res;
 
+import com.pcer.entity.Tag;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -10,6 +11,6 @@ public class ProblemItem {
     String name;
     String difficulty;
     String content;
-    ArrayList<String> tags;
+    ArrayList<Tag> tags;
 
 }

@@ -20,9 +20,9 @@ public class ProblemServiceImpl implements ProblemService {
     private ProblemDao problemDao;
 
     @Override
-    public List<ProblemItem> getProblems() {
+    public ArrayList<ProblemItem> getProblems() {
         ArrayList<ProblemItem> res = new ArrayList<>();
-        List<Problem> problems = problemDao.getProblems();
+        ArrayList<Problem> problems = problemDao.getProblems();
         for(Problem problem : problems){
             ProblemItem p = new ProblemItem();
             p.setId(problem.getId());

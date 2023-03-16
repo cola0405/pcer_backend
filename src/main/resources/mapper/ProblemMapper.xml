@@ -6,8 +6,8 @@
         select * from problem
     </select>
 
-    <select id="getProblemTags" resultType="string">
-        select tag.name from problem as p
+    <select id="getProblemTags" resultType="com.pcer.entity.Tag">
+        select tag.id, tag.name from problem as p
             join problem_tag_relation as pt on p.id = pt.problem_id
             join tag on pt.tag_id = tag.id
     </select>

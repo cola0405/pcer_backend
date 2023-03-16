@@ -3,11 +3,13 @@ package com.pcer.controller;
 import com.pcer.entity.req.NewProblemReq;
 import com.pcer.entity.res.ProblemItem;
 import com.pcer.entity.res.R;
+import com.pcer.entity.res.RD;
 import com.pcer.service.ProblemService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -18,8 +20,9 @@ public class ProblemsController {
     ProblemService problemService;
 
     @RequestMapping("/getList")
-    public List<ProblemItem> getProblems(){
-        return problemService.getProblems();
+    public RD getProblems(){
+        ArrayList<ProblemItem> problemList = problemService.getProblems();
+        return RD.success().putData("problemList", problemList);
     }
 
     @PostMapping("/new")
