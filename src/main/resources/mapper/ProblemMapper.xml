@@ -8,7 +8,7 @@
 
     <select id="getProblemTags" resultType="com.pcer.entity.Tag">
         select tag.id, tag.name from problem as p
-            join problem_tag_relation as pt on p.id = pt.problem_id
+            join (select * from problem_tag_relation where is_valid = 1) as pt on p.id = pt.problem_id
             join tag on pt.tag_id = tag.id
     </select>
 
@@ -19,5 +19,22 @@
     <select id="getProblemById" resultType="com.pcer.entity.res.ProblemItem">
         select id, name, difficulty, content from problem where id = #{id}
     </select>
+
+    <update id="updateProblem">
+        update problem set name = #{name}, difficulty = #{difficulty}, content = #{content}
+    </update>
+
+    <select id="getProblemTagNames" resultType="java.lang.String">
+        select tag.name from (select tag_id from problem_tag_relation where problem_id = #{id} and is_valid = 1) as ptr
+            join tag on ptr.tag_id = tag.id
+    </select>
+
+    <update id="removeTag">
+        update problem_tag_relation set is_valid = 0 where problem_id = #{problemId} and tag_id = #{tagId}
+    </update>
+
+    <insert id="addTag" parameterType="com.pcer.entity.ProblemTagRelation">
+        insert into problem_tag_relation values(null, #{problemId}, #{tagId}, 1)
+    </insert>
 
 </mapper>

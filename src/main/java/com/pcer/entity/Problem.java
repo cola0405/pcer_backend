@@ -18,12 +18,4 @@ public class Problem implements Serializable {
     String difficulty;
     String content;
 
-    ArrayList<String> d = new ArrayList<>(Arrays.asList("简单","中等","困难"));
-    public void setDifficulty(String difficulty){
-        this.difficulty =  d.get(Integer.parseInt(difficulty));
-    }
-
-    public void setDifficultyValue(String difficulty){
-        this.difficulty =  String.valueOf(d.indexOf(difficulty));
-    }
 }

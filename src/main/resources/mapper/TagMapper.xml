@@ -10,4 +10,5 @@
         update tag set is_valid = 0 where id = #{id}
     </update>
 
+
 </mapper>

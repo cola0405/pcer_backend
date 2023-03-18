@@ -1,6 +1,7 @@
 package com.pcer.controller;
 
 import com.pcer.entity.req.NewProblemReq;
+import com.pcer.entity.req.UpdateProblemReq;
 import com.pcer.entity.res.ProblemItem;
 import com.pcer.entity.res.R;
 import com.pcer.entity.res.RD;
@@ -35,6 +36,12 @@ public class ProblemsController {
     public ProblemItem getProblem(@RequestParam("id") Integer id){
         ProblemItem item = problemService.getProblemById(id);
         return item;
+    }
+
+    @PostMapping("/update")
+    public R updateProblem(@RequestBody UpdateProblemReq req){
+        problemService.updateProblem(req);
+        return R.success();
     }
 
 }
