@@ -3,6 +3,7 @@ package com.pcer.entity.req;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 
 @Data
 public class NewProblemReq {
@@ -12,4 +13,6 @@ public class NewProblemReq {
     String difficulty;
     @NotNull(message = "题目内容不能为空")
     String content;
+
+    ArrayList<String> selectedTags;
 }

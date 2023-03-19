@@ -12,5 +12,4 @@ public class ProblemItem {
     String difficulty;
     String content;
     ArrayList<Tag> tags;
-
 }

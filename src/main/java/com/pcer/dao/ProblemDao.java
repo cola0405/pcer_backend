@@ -18,7 +18,7 @@ public interface ProblemDao extends BaseMapper<Problem> {
     ArrayList<Problem> getProblems();
     Integer newProblem(Problem problem);
     ProblemItem getProblemById(Integer id);
-    ArrayList<Tag> getProblemTags();
+    ArrayList<Tag> getProblemTags(Integer id);
     Boolean updateProblem(UpdateProblemReq req);
     ArrayList<String> getProblemTagNames(Integer id);
     Boolean removeTag(Integer problemId, Integer tagId);

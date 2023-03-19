@@ -3,7 +3,6 @@ package com.pcer.service.impl;
 import com.pcer.dao.ProblemDao;
 import com.pcer.dao.TagDao;
 import com.pcer.entity.Problem;
-import com.pcer.entity.Tag;
 import com.pcer.entity.req.NewProblemReq;
 import com.pcer.entity.req.UpdateProblemReq;
 import com.pcer.entity.res.ProblemItem;
@@ -14,10 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 
 @Service
@@ -42,7 +38,7 @@ public class ProblemServiceImpl implements ProblemService {
             p.setName(problem.getName());
             p.setContent(problem.getContent());
             p.setDifficulty(problem.getDifficulty());
-            p.setTags(problemDao.getProblemTags());
+            p.setTags(problemDao.getProblemTags(problem.getId()));
             res.add(p);
         }
         return res;
@@ -52,9 +48,17 @@ public class ProblemServiceImpl implements ProblemService {
     public void newProblem(NewProblemReq req) throws Exception {
         Problem p = new Problem();
         p.setName(req.getName());
+        p.setDifficulty(req.getDifficulty());
         p.setContent(req.getContent());
         int res = problemDao.newProblem(p);
         CodeEnum.fail.assertIsEquals(res, 1);
+
+        // insert tag
+        for(String tag : req.getSelectedTags()){
+            Integer problemId = p.getId();
+            Integer tagId = mapTool.tag2Id(tag);
+            problemDao.addTag(problemId, tagId);
+        }
     }
 
     @Override
@@ -70,14 +74,11 @@ public class ProblemServiceImpl implements ProblemService {
         problemDao.updateProblem(req);
         ArrayList<String> oldTags = problemDao.getProblemTagNames(problemId);
         ArrayList<String> newTags = req.getSelectedTags();
-        System.out.println(oldTags);
-        System.out.println(newTags);
-        HashMap<String, Integer> tag2Id = mapTool.getTag2Id();
 
         // delete tag
         for (String tag : oldTags){
             if (!newTags.contains(tag)){
-                Integer tagId = tag2Id.get(tag);
+                Integer tagId = mapTool.tag2Id(tag);
                 problemDao.removeTag(problemId, tagId);
             }
         }
@@ -85,7 +86,7 @@ public class ProblemServiceImpl implements ProblemService {
         // add tag
         for (String tag : newTags){
             if (!oldTags.contains(tag)){
-                Integer tagId = tag2Id.get(tag);
+                Integer tagId = mapTool.tag2Id(tag);
                 problemDao.addTag(problemId, tagId);
             }
         }

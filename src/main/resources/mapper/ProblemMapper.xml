@@ -7,12 +7,12 @@
     </select>
 
     <select id="getProblemTags" resultType="com.pcer.entity.Tag">
-        select tag.id, tag.name from problem as p
-            join (select * from problem_tag_relation where is_valid = 1) as pt on p.id = pt.problem_id
+        select tag.id, tag.name from
+            (select * from problem_tag_relation where is_valid = 1 and problem_id = #{id}) as pt
             join tag on pt.tag_id = tag.id
     </select>
 
-    <insert id="newProblem" parameterType="com.pcer.entity.Problem">
+    <insert id="newProblem" parameterType="com.pcer.entity.Problem" useGeneratedKeys="true" keyProperty="id">
         insert into problem values(null, #{name}, #{difficulty}, #{content})
     </insert>
 
@@ -21,7 +21,7 @@
     </select>
 
     <update id="updateProblem">
-        update problem set name = #{name}, difficulty = #{difficulty}, content = #{content}
+        update problem set name = #{name}, difficulty = #{difficulty}, content = #{content} where id = #{id}
     </update>
 
     <select id="getProblemTagNames" resultType="java.lang.String">
@@ -33,7 +33,7 @@
         update problem_tag_relation set is_valid = 0 where problem_id = #{problemId} and tag_id = #{tagId}
     </update>
 
-    <insert id="addTag" parameterType="com.pcer.entity.ProblemTagRelation">
+    <insert id="addTag">
         insert into problem_tag_relation values(null, #{problemId}, #{tagId}, 1)
     </insert>
 
